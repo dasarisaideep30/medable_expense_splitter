@@ -17,10 +17,11 @@ describe('App Component', () => {
 
   it('should display initial people', () => {
     render(<App />)
-    expect(screen.getByText('Alice')).toBeInTheDocument()
-    expect(screen.getByText('Bob')).toBeInTheDocument()
-    expect(screen.getByText('Charlie')).toBeInTheDocument()
-    expect(screen.getByText('Diana')).toBeInTheDocument()
+    expect(screen.getAllByText('Alice').length).toBeGreaterThan(0)
+    expect(screen.getAllByText('Bob').length).toBeGreaterThan(0)
+    expect(screen.getAllByText('Charlie').length).toBeGreaterThan(0)
+    expect(screen.getAllByText('Diana').length).toBeGreaterThan(0)
+    expect(screen.getByText('Current Members (4)')).toBeInTheDocument()
   })
 
   it('should add a new person', async () => {
@@ -31,7 +32,7 @@ describe('App Component', () => {
     await userEvent.type(input, 'Eve')
     await userEvent.click(addButton)
 
-    expect(screen.getByText('Eve')).toBeInTheDocument()
+    expect(screen.getAllByText('Eve').length).toBeGreaterThan(0)
     expect(screen.getByText('Current Members (5)')).toBeInTheDocument()
   })
 
@@ -51,8 +52,8 @@ describe('App Component', () => {
   it('should remove a person correctly without off-by-one error', async () => {
     render(<App />)
 
-    // Find all delete buttons
-    const deleteButtons = screen.getAllByTitle('Remove person')
+    // Find all delete buttons (including disabled ones)
+    const deleteButtons = screen.getAllByText('❌')
 
     // Try to remove the first person (Alice)
     // Alice has expenses, so this should fail
@@ -67,10 +68,10 @@ describe('App Component', () => {
 
     // Now we should have 5 people
     expect(screen.getByText('Current Members (5)')).toBeInTheDocument()
-    expect(screen.getByText('TestPerson')).toBeInTheDocument()
+    expect(screen.getAllByText('TestPerson').length).toBeGreaterThan(0)
 
     // Get updated delete buttons
-    const updatedDeleteButtons = screen.getAllByTitle('Remove person')
+    const updatedDeleteButtons = screen.getAllByText('❌')
 
     // Remove TestPerson (last person, index 4)
     await userEvent.click(updatedDeleteButtons[4])
@@ -80,10 +81,10 @@ describe('App Component', () => {
     expect(screen.getByText('Current Members (4)')).toBeInTheDocument()
 
     // Original 4 people should still be there
-    expect(screen.getByText('Alice')).toBeInTheDocument()
-    expect(screen.getByText('Bob')).toBeInTheDocument()
-    expect(screen.getByText('Charlie')).toBeInTheDocument()
-    expect(screen.getByText('Diana')).toBeInTheDocument()
+    expect(screen.getAllByText('Alice').length).toBeGreaterThan(0)
+    expect(screen.getAllByText('Bob').length).toBeGreaterThan(0)
+    expect(screen.getAllByText('Charlie').length).toBeGreaterThan(0)
+    expect(screen.getAllByText('Diana').length).toBeGreaterThan(0)
   })
 
   it('should prevent removing people below minimum of 2', async () => {

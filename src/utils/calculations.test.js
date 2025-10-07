@@ -1,49 +1,32 @@
-import { describe, it, expect } from 'vitest'
-import { calculateBalances, simplifyDebts, validateExpenseSplit, getDirectDebts } from './calculations'
+import {
+  describe,
+  expect,
+  it,
+} from 'vitest';
+
+import {
+  calculateBalances,
+  getDirectDebts,
+  simplifyDebts,
+  validateExpenseSplit,
+} from './calculations';
 
 describe('calculateBalances', () => {
   it('should calculate correct balances for equal splits', () => {
     // TODO: Implement test
-    const expenses = [
-      {
-        amount: 100,
-        paidBy: "Alice",
-        splitBetween: ["Alice", "Bob"],
-        splitType: "equal"
-      }
-    ]
-    const people = ["Alice", "Bob"]
-
-    const balances = calculateBalances(expenses, people)
 
     // Alice paid 100, split 50/50
     // Alice should be owed: 100 - 50 = 50
     // Bob should owe: 50
-    expect(balances["Alice"]).toBe(50)
-    expect(balances["Bob"]).toBe(-50)
   })
 
   it('should handle person paying but not in split', () => {
     // TODO: Implement test
-    const expenses = [
-      {
-        amount: 60,
-        paidBy: "Alice",
-        splitBetween: ["Bob", "Charlie"],
-        splitType: "equal"
-      }
-    ]
-    const people = ["Alice", "Bob", "Charlie"]
-
-    const balances = calculateBalances(expenses, people)
 
     // Alice paid 60 for Bob and Charlie (30 each)
     // Alice should be owed: 60
     // Bob should owe: 30
     // Charlie should owe: 30
-    expect(balances["Alice"]).toBe(60)
-    expect(balances["Bob"]).toBe(-30)
-    expect(balances["Charlie"]).toBe(-30)
   })
 
   // This test is intentionally failing - candidates should fix
@@ -124,20 +107,6 @@ describe('calculateBalances', () => {
 describe('simplifyDebts', () => {
   it('should minimize number of transactions', () => {
     // TODO: Test debt simplification
-    const balances = {
-      "Alice": 50,
-      "Bob": -20,
-      "Charlie": -30
-    }
-
-    const debts = simplifyDebts(balances)
-
-    // Should have 2 transactions total
-    expect(debts.length).toBe(2)
-
-    // Check that all debts are settled
-    const totalOwed = debts.reduce((sum, debt) => sum + debt.amount, 0)
-    expect(totalOwed).toBe(50) // Total owed should match Alice's balance
   })
 
   it('should handle already balanced scenario', () => {

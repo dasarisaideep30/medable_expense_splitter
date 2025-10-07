@@ -10,7 +10,7 @@ export function calculateBalances(expenses, people) {
     const { amount, paidBy, splitBetween, splitType, customAmounts } = expense
 
     // Person who paid gets positive balance
-    // BUG: This should be += but is just = which overwrites previous balance
+    // BUG: This overwrites previous balance
     balances[paidBy] = balances[paidBy] + amount
 
     // Calculate how much each person owes
@@ -19,14 +19,13 @@ export function calculateBalances(expenses, people) {
 
       splitBetween.forEach(person => {
         // BUG: Balance calculation adds when it should subtract
-        // This should be -= splitAmount but it's +=
-        balances[person] += splitAmount  // WRONG: should subtract!
+        balances[person] += splitAmount
       })
     } else if (splitType === 'custom' && customAmounts) {
       splitBetween.forEach(person => {
         const customAmount = parseFloat(customAmounts[person] || 0)
         // Same bug here
-        balances[person] += customAmount  // WRONG: should subtract!
+        balances[person] += customAmount
       })
     }
   })

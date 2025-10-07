@@ -594,8 +594,7 @@ body {
 @media (max-width: 768px) {
   /* BUG: Container still breaks because of fixed widths and no flex-wrap */
   .container {
-    /* Should have flex-direction: column or flex-wrap: wrap */
-    /* But currently missing, causing horizontal scroll */
+    /* BUG: horizontal scroll */
   }
 
   .app-header h1 {

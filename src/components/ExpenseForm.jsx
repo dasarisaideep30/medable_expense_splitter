@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
 function ExpenseForm({ people, onAddExpense }) {
   const [description, setDescription] = useState('')
@@ -50,12 +50,6 @@ function ExpenseForm({ people, onAddExpense }) {
     onAddExpense(expense)
 
     // BUG: State not clearing after form submission
-    // Missing reset of form fields
-    // setDescription('')
-    // setAmount('')
-    // setPaidBy('')
-    // setSelectedPeople([])
-    // setCustomAmounts({})
   }
 
   const handlePersonToggle = (person) => {

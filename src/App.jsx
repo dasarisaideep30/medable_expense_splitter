@@ -1,10 +1,15 @@
-import { useState } from 'react'
-import './styles/App.css'
-import { initialPeople, initialExpenses } from './initialData'
-import PeopleManager from './components/PeopleManager'
-import ExpenseForm from './components/ExpenseForm'
-import BalanceView from './components/BalanceView'
-import ExpenseList from './components/ExpenseList'
+import './styles/App.css';
+
+import { useState } from 'react';
+
+import BalanceView from './components/BalanceView';
+import ExpenseForm from './components/ExpenseForm';
+import ExpenseList from './components/ExpenseList';
+import PeopleManager from './components/PeopleManager';
+import {
+  initialExpenses,
+  initialPeople,
+} from './initialData';
 
 function App() {
   const [people, setPeople] = useState(initialPeople)
@@ -12,18 +17,6 @@ function App() {
 
   const addPerson = (name) => {
     // TODO: Implement validation and adding
-    if (!name || name.trim() === '') {
-      alert('Please enter a valid name')
-      return
-    }
-
-    // Check for duplicates (case-insensitive)
-    if (people.some(p => p.toLowerCase() === name.toLowerCase())) {
-      alert('This person already exists')
-      return
-    }
-
-    setPeople([...people, name.trim()])
   }
 
   const removePerson = (index) => {
@@ -33,16 +26,10 @@ function App() {
 
   const addExpense = (expense) => {
     // TODO: Add new expense with unique ID
-    const newExpense = {
-      ...expense,
-      id: Math.max(0, ...expenses.map(e => e.id)) + 1
-    }
-    setExpenses([...expenses, newExpense])
   }
 
   const removeExpense = (id) => {
     // TODO: Implement expense removal
-    setExpenses(expenses.filter(e => e.id !== id))
   }
 
   return (
