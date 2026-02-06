@@ -1,12 +1,17 @@
+export interface Person {
+  id: string;
+  name: string;
+}
+
 export interface Expense {
   id: number;
   description: string;
   amount: number;
-  paidBy: string;
-  splitBetween: string[];
+  paidBy: string; // person id
+  splitBetween: string[]; // array of person ids
   date: string;
   splitType: 'equal' | 'custom';
-  customAmounts?: { [person: string]: number };
+  customAmounts?: { [personId: string]: number };
 }
 
 export interface Balance {
